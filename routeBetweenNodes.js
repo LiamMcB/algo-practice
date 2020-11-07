@@ -84,7 +84,7 @@ bFS(graph, vertex, target ) {
   }
   // Returns true if target found with BFS
   return found;
-}
+};
 
 
 // Tests
