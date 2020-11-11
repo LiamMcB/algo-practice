@@ -1,5 +1,6 @@
 /* Given an array of ticket objects with source and destination, find your original source, and final destination */
 
+// O(n^2)
 function trainTickets(tickets) {
   // Initialize object to hold original source and destination
   const result = {source: '', dest: ''};

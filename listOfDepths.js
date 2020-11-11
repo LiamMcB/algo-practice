@@ -1,4 +1,28 @@
 /* 4.3 Given a binary tree, return an array of linked lists, where each linked list is all the nodes at a particular depth */
+class BST {
+  constructor(val) {
+    this.val = val;
+    this.left = null;
+    this.right = null;
+  }
+  add(val) {
+    // Create new BST
+    const bst = new BST(val);
+    // Cases where right and left nodes, dont exist, so add new bst here
+    if (val > this.val && !this.right) {
+      this.right = bst;
+    } else if (val < this.val && !this.left) {
+      this.left = bst;
+    }
+    // Cases where we continue traversing down
+    else if (val > this.val && this.right) {
+      this.right.add(val);
+    } else if (val < this.val && this.left) {
+      this.left.add(val);
+    }
+  }
+}
+
 class LinkedList {
   constructor() {
     this.head = null;
@@ -28,20 +52,34 @@ class Node {
 
 function listOfDepths(root) {
   // Array of ll's to be returned
-  const output = [];
-  // Values is an array of objects with value and depth
-  const values = [];
-  // q used for BFS
-  const queue = [];
-  queue.push(root);
-  let depth = 1;
-  // While queue, isn't empty, do BFS and add 
-  while (queue) {
-    if (queue[0].left) queue.push(queue[0].left);
-    if (queue[0].right) queue.push(queue[0].right);
-    queue.shift();
+  const lists = [];
+  // Helper function that takes the current node, lists array, and depth
+  function addToList(node, depth) {
+    // Run code only if current node is not null
+    if (node) {
+      // If no ll at current depth, instantiate one
+      if (!lists[depth]) {
+        lists[depth] = new LinkedList();
+      }
+      // Add node's value to linked list 
+      lists[depth].push(node.val);
+      // Invoke helper function on left and right nodes of current node
+      addToList(node.left, depth + 1);
+      addToList(node.right, depth + 1);
+    }
   }
-  return queue;
+  // Invoke lists at depth 0 with root
+  addToList(root, 0);
+  // Return lists
+  return lists;
 }
 
 // Tests:
+const test = new BST(4);
+test.add(6);
+test.add(2);
+test.add(0);
+test.add(3);
+test.add(9);
+console.log(test);
+console.log(listOfDepths(test));

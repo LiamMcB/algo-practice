@@ -7,18 +7,17 @@ class BST {
   add(val) {
     // Create new BST
     const bst = new BST(val);
-    // Traverse tree and add value in correct place
-    let current = this;
-    while (current.left || current.right) {
-      if (val < current.val && current.left) {
-        current = current.left;
-      } else if (val > current.val && current.right) {
-        current = current.right;
-      } else if (val < current.val && !current.left) {
-        current.left = bst;
-      } else if (val < current.val && !current.right) {
-        current.right = bst;
-      }
+    // Cases where right and left nodes, dont exist, so add new bst here
+    if (val > this.val && !this.right) {
+      this.right = bst;
+    } else if (val < this.val && !this.left) {
+      this.left = bst;
+    }
+    // Cases where we continue traversing down
+    else if (val > this.val && this.right) {
+      this.right.add(val);
+    } else if (val < this.val && this.left) {
+      this.left.add(val);
     }
   }
 }
