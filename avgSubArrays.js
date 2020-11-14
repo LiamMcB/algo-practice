@@ -1,6 +1,6 @@
 /* GTCI: Sliding Window Intro: Given an array and a number K, find the average of all continuous subArrays of size K in it */
 
-avgSubArrays(arr, k) {
+function avgSubArrays(arr, k) {
   // Declare array to hold list of averages
   const result = [];
   // Declare window start and a sum to keep track of window totals 
@@ -23,3 +23,7 @@ avgSubArrays(arr, k) {
   // Return result
   return result; 
 }
+
+// Tests:
+const arr1 = [1, 3, 2, 6, -1, 4, 1, 8, 2];
+console.log(avgSubArrays(arr1, 5));
