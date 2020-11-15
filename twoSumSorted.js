@@ -1,4 +1,4 @@
-/* GTCI Two-Pointers Intro: Given an array of sorted numbers and a target sum, 
+/* GTCI Two-Pointers 1: Given an array of sorted numbers and a target sum, 
 find a pair in the array whose sum is equal to the given target. */
 
 function twoSumSorted(arr, target) {
@@ -7,14 +7,14 @@ function twoSumSorted(arr, target) {
 	while (right > left) {
 		const sum = arr[right] + arr[left];
 		if (sum === target) {
-			return true;
+			return [left, right];
 		} else if (sum > target) {
 			right -= 1;
 		} else if (sum < target) {
 			left += 1;
 		}
   }
-  return false;
+  return [-1, -1];
 }
 
 // Tests:
