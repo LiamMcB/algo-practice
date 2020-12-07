@@ -1,6 +1,7 @@
 /* GTCI Subsets 1: Given a set with distinct elements, return all distinct subsets.*/
 // Input: array of numbers
 // Output: array of arrays of numbers
+// O(n*2^n) time O(n*2^n) space since we construct a newly doubled subset at each iteration
 const distinctSubsets = function(nums) {
   // Initialize array of subsets
   let subsets = [[]];
