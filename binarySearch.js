@@ -25,7 +25,7 @@ const ascBinarySearch = function(arr, key, start, end) {
   // Base case if arr's first value is the key
   if (arr[start] === key) return start;
   // Find midpoint index
-  const midpoint = start + Math.floor(end - start / 2);
+  const midpoint = start + Math.floor((end - start) / 2);
   // If the key is less than the midpoint, invoke function on first half
   if (key < arr[midpoint]) return ascBinarySearch(arr, key, start, midpoint - 1);
   // If its greater than the midpoint, invoke it on second half
@@ -40,7 +40,7 @@ const descBinarySearch = function(arr, key, start, end) {
   // Base case if arr's first value is the key
   if (arr[start] === key) return start;
   // Find midpoint index
-  const midpoint = start + Math.floor(end - start / 2);
+  const midpoint = start + Math.floor((end - start) / 2);
   // If the key is greater than the midpoint, invoke function on first half
   if (key > arr[midpoint]) return descBinarySearch(arr, key, start, midpoint - 1);
   // If its less than the midpoint, invoke it on second half
