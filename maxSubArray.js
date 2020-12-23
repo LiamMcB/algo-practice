@@ -55,7 +55,8 @@ const maxSubArrayofAnyLength = (arr) => {
   let maxSum = -Infinity;
   // Iterate over array
   for (var i = 0; i < arr.length; i++) {
-    // If current arr element is positive, reset previous sum to add it, else add it as long as adding it doesnt make it smaller than the current el
+    // If current arr element is positive, reset previous sum to add it, 
+    // else add it as long as adding it doesnt make it smaller than the current el
     prevSum = Math.max(prevSum + arr[i], arr[i]);
     // Set max sum to be the maximum of the current max sum and the previous
     maxSum = Math.max(maxSum, prevSum);
@@ -64,5 +65,5 @@ const maxSubArrayofAnyLength = (arr) => {
 }
 // Test Cases:
 const arr2 = [-2,1,-3,4,-1,2,1,-5,4];
-const arr3 = [-1, 4, -1, 2, 0]
+const arr3 = [-1, 4, -1, -2, 0]
 console.log(maxSubArrayofAnyLength(arr3));
