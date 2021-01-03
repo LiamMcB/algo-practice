@@ -20,4 +20,4 @@ const generateParens = function(n) {
 }
 
 // Tests:
-console.log(generateParens(2));
+console.log(generateParens(4));
