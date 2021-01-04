@@ -63,3 +63,30 @@ function find_permutations(nums) {
 // Tests: 
 const arr1 = [1, 3, 5];
 console.log(find_permutations(arr1));
+
+// Review
+const permute = function(nums) {
+  // Initialize result with empty array
+  let result = [[]];
+  // Iterate over nums
+  for (let i = 0; i < nums.length; i += 1) {
+    // Initialize empty array to hold all permutations with current number
+    const currentPerms = [];
+    // Loop through result
+    result.forEach((res, ind) => {
+      // Add the current number to every possible index of current result array
+      for (let j = 0; j < res.length + 1; j += 1) {
+        const resCopy = [...res];
+        resCopy.splice(j, 0, nums[i]);
+        currentPerms.push(resCopy);
+      }
+    });
+    // Reset result to current perms
+    result = currentPerms;
+  }
+  return result;
+};
+
+// nums [1, 2] result [[1]] CP [[1, 2], [2, 1]] 
+const arr2 = [1, 6, 3];
+console.log(permute(arr2));
