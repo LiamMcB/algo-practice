@@ -61,4 +61,52 @@ const reverseAlt = function(num) {
 }
 // Tests:
 // 12 -> 21, 435 -> 534
-console.log(reverseAlt(435689129))
+console.log(reverseAlt(435689129));
+
+/* Write a function that, given an inventory of titles (say movies), and a starting movie title, 
+returns the longest list of titles (in which each title appears only once), 
+where the first word of the next title in the list is equal to the last word of the preceding title. */
+const getInventory = function(titles) {
+  // Initialize longest list array
+  let longestList = [];
+  // Hash map with last word and titles in adj list where it shows up
+  const wordMap = {};
+  // Iterate over titles
+  for (let i = 0; i < titles.length; i += 1) {
+    // Grab the first word and last word
+    const arrayWords = titles[i].split(' ');
+    const first = arrayWords[0];
+    const last = arrayWords[arrayWords.length - 1];
+    // If first word in word map, add it to the adj list
+    if (wordMap[first]) wordMap[first].push(titles[i]);
+    else wordMap[first] = [titles[i]];
+  }
+  wordMap
+  // Iterate over word map, starting on each key and finding longest list starting at that key
+  for (word in wordMap) {
+    // Store list to hold current longest list
+    const currentList = findLongestList(wordMap, word, []);
+    // Compare to fscoped longest list and if longer, reset
+    longestList = longestList.length > currentList.length ? longestList : currentList;
+  }
+  return longestList;
+}
+
+const findLongestList = function(wordMap, currentWord, list) {
+  // Base case if our current word isn't in the word map
+  if (!wordMap[currentWord]) return list;
+  // Iterate over current word's adjacency list
+  const adjList = wordMap[currentWord];
+  for (let i = 0; i < adjList.length; i += 1) {
+    let currentList = [...list];
+    currentList.push(adjList[i]);
+    // Find the longest list starting at this word and concat to the current list
+    currentList = list.concat(findLongestList(wordMap, wordMap[currentWord][i], list));
+    list = list.length > currentList.length ? list : currentList;
+  }
+  return list;
+}
+
+// Tests:
+const titles1 = ['OF MICE AND MEN', 'BLACK MASS', 'MEN IN BLACK'];
+console.log(getInventory(titles1));
