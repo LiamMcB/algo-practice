@@ -60,6 +60,7 @@ const handler = (req, res) => {
   const _req = pipe(request({ url: Servers.roundRobin().PORT + req.url })).on('error', error =>{
     res.status(500).send(error.message); // Handles errors if request to server times out, etc.
   });
+  // Pipe response back to user
   req.pipe(_req).pipe(res);
 }
 
