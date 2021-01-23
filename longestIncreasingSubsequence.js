@@ -46,7 +46,6 @@ const lengthofLISAlt = function(nums) {
       if (nums[j] < nums[i]) LIS[i] = Math.max(LIS[i], LIS[j] + 1);
     }
   }
-  LIS
   // Return the list's max
   return LIS.reduce((a, b) => Math.max(a, b));
 }
