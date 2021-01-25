@@ -90,3 +90,28 @@ const permute = function(nums) {
 // nums [1, 2] result [[1]] CP [[1, 2], [2, 1]] 
 const arr2 = [1, 6, 3];
 console.log(permute(arr2));
+
+// More review
+/* GTCI Subsets 3: Given an array of distinct numbers, find all of its permutations */
+const permsReview = function(nums) {
+  // Initialize array of permutations
+  let perms = [[]];
+  // Iterate over all nums
+  for (let i = 0; i < nums.length; i += 1) {
+    // Create array of current numbers permutations
+    const currentPerms = [];
+    // Iterate over perms
+    for (let j = 0; j < perms.length; j += 1) {
+      // Iterate over the current permutation
+      for (let w = 0; w <= perms[j].length; w += 1) {
+        let permCopy = [...perms[j]];
+        permCopy.splice(w, 0, nums[i]);
+        currentPerms.push(permCopy);
+      }
+    }
+    perms = currentPerms;
+  }
+  return perms;
+}
+const arr5 = [1, 6, 3];
+console.log(permsReview(arr5));
