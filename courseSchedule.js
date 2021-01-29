@@ -42,10 +42,51 @@ const courseSchedule = function(numCourses, prerequisites) {
   return traverseGraph(prerequisites[0][0], 1);
 }
 
+const courseScheduleAlt = function(numCourses, prerequisites) {
+  // Initialize set for memoization
+  const seen = new Set();
+  // Set to keep track of courses visited to avoid inf loop
+  const coursesVisited = new Set();
+  // Adj list for prereqs
+  const adj = new Array(numCourses).fill([]);
+  // Iterate over prereqs and populate adj list
+  for (let [u, v] of prerequisites) {
+    adj[v].push(u);
+  }
+  // Helper to traverse using dfs
+  const traverse = function(course) {
+    // If the course has been seen from memo, return true
+    if (seen.has(course)) return true;
+    // If it has been visited, return false to avoid inf loop
+    if (coursesVisited.has(course)) return false;
+    // Add the current course to courses visited
+    coursesVisited.add(course);
+    // Check all prereqs for specific course
+    for (let pre of adj[course]) {
+      if (!traverse(pre)) return false;
+    }
+    // Remove course from courses visited
+    coursesVisited.delete(course);
+    // Add it to our memo
+    seen.add(course);
+    // Return true if no false condition met
+    return true;
+  }
+  // Iterate over adj list to see if any course not possible
+  for (let i = 0; i < numCourses; i += 1) {
+    if (!traverse(i)) return false;
+  }
+  // Return true if no impossible course found
+  return true;
+}
+
 // Tests:
 const pre1 = [[1, 0]];
 const pre2 = [[1,0],[0,1]];
 const pre3 = [];
 const pre4 = [[0,10],[3,18],[5,5],[6,11],[11,14],[13,1],[15,1],[17,4]];
-// console.log(courseSchedule(20, pre4));
-// console.log(courseSchedule(2, pre1));
+console.log(courseScheduleAlt(20, pre4));
+console.log(courseScheduleAlt(2, pre1));
+// const arr1 = new Array(5).fill([]);
+// const arr2 = [...Array(5)].map(r => []);
+// console.log(arr1, arr2);
